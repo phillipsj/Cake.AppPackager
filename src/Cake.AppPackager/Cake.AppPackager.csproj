@@ -45,10 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppPackagerAliases.cs" />
+    <Compile Include="AppPackagerCommand.cs" />
     <Compile Include="AppPackagerResolver.cs" />
     <Compile Include="AppPackagerRunner.cs" />
     <Compile Include="AppPackagerSettings.cs" />
+    <Compile Include="HashAlgorithm.cs" />
     <Compile Include="IAppPackagerResolver.cs" />
+    <Compile Include="ProcessBuilderExtensionsMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

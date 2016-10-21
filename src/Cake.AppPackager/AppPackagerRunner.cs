@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -47,6 +49,51 @@ namespace Cake.AppPackager {
             _resolver = resolver ?? new AppPackagerResolver(_fileSystem, _environment, registry);
         }
 
+        public void Run(AppPackagerCommand command, AppPackagerSettings settings) {
+            if (settings == null) {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            Run(settings, GetArguments(command, settings));
+        }
+
+        private ProcessArgumentBuilder GetArguments(AppPackagerCommand command, AppPackagerSettings settings)
+        {
+            var builder = new ProcessArgumentBuilder();
+            switch(command){
+                case AppPackagerCommand.Pack:
+                    builder.Append("pack");
+                    break;
+                case AppPackagerCommand.Unpack:
+                    builder.Append("unpack");
+                    break;
+                case AppPackagerCommand.Bundle:
+                    builder.Append("bundle");
+                    break;
+                case AppPackagerCommand.Unbundle:
+                    builder.Append("unbundle");
+                    break;
+                case AppPackagerCommand.Encrypt:
+                    builder.Append("encrypt");
+                    break;
+                case AppPackagerCommand.Decrypt:
+                    builder.Append("decrypt");
+                    break;
+                default:
+                    throw new ArgumentNullException(nameof(command), "A valid command was not specified.");
+            }
+
+            AddSwitchArguments(builder, settings);
+            return builder;
+        }
+
+        private static void AddSwitchArguments(ProcessArgumentBuilder builder, AppPackagerSettings settings) {
+            builder.AppendSwitch(settings.Localized, "l");
+            builder.AppendSwitch(settings.OverwriteOutput, "o");
+            builder.AppendSwitch(settings.PreventOverwriteOutput, "no");
+            builder.AppendSwitch(settings.SkipSemanticValidation, "nv");
+            builder.AppendSwitch(settings.EnableVerboseLogging, "v");
+        }
 
         /// <summary>
         /// Gets the name of the tool.
