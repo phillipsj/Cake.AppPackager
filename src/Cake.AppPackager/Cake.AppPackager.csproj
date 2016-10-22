@@ -45,14 +45,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppPackagerAliases.cs" />
-    <Compile Include="AppPackagerCommand.cs" />
     <Compile Include="AppPackagerResolver.cs" />
-    <Compile Include="AppPackagerRunner.cs" />
     <Compile Include="AppPackagerSettings.cs" />
+    <Compile Include="AppPackagerTool.cs" />
+    <Compile Include="Bundle\AppBundler.cs" />
+    <Compile Include="Decrypt\AppDecrypter.cs" />
+    <Compile Include="Encrypt\AppEncrypter.cs" />
     <Compile Include="HashAlgorithm.cs" />
     <Compile Include="IAppPackagerResolver.cs" />
+    <Compile Include="Pack\AppPacker.cs" />
     <Compile Include="ProcessBuilderExtensionsMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unbundle\AppUnbundler.cs" />
+    <Compile Include="Unpack\AppUnpacker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

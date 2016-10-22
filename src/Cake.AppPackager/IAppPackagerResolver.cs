@@ -8,6 +8,6 @@ namespace Cake.AppPackager
         /// Resolves the path to the AppPackager (MakeAppx) tool.
         /// </summary>
         /// <returns>The path to the AppPackager tool.</returns>
-        FilePath GetPath();
+        FilePath ResolvePath();
     }
 }
