@@ -24,7 +24,7 @@ namespace Cake.AppPackager.Unpack {
         }
 
         /// <summary>
-        /// Unpacks an application package with teh same structure as installed package.
+        /// Unpacks an application package with the same structure as installed package.
         /// </summary>
         /// <param name="inputPackageName">Input name of the application package.</param>
         /// <param name="outputDirectory">Output directory to unpack the application.</param>
@@ -42,11 +42,10 @@ namespace Cake.AppPackager.Unpack {
 
             Run(settings, GetArguments(inputPackageName, outputDirectory, settings));
         }
-
-
+        
         private ProcessArgumentBuilder GetArguments(string inputPackageName, IDirectory outputDirectory, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
-            builder.Append("pack");
+            builder.Append("unpack");
 
             builder.Append("/p");
             builder.AppendQuoted(inputPackageName);
