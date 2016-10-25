@@ -5,6 +5,9 @@ using Cake.Core.Tooling;
 
 namespace Cake.AppPackager.Unbundle
 {
+    /// <summary>
+    /// The App Packager unbundler used to unbundle applications.
+    /// </summary>
     public sealed class AppUnbundler : AppPackagerTool<AppPackagerSettings>
     {
         private readonly ICakeEnvironment _environment;

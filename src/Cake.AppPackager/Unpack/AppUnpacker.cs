@@ -4,6 +4,9 @@ using Cake.Core.IO;
 using Cake.Core.Tooling;
 
 namespace Cake.AppPackager.Unpack {
+    /// <summary>
+    /// The App Packager unpacker used to unpack applications.
+    /// </summary>
     public sealed class AppUnpacker : AppPackagerTool<AppPackagerSettings> {
         private readonly ICakeEnvironment _environment;
 
