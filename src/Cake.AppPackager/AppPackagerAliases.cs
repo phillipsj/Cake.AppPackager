@@ -20,10 +20,41 @@ namespace Cake.AppPackager {
     [CakeAliasCategory("AppPacakager")]
     public static class AppPackagerAliases {
 
+        /// <summary>
+        /// Create an application package using the specificed output name, content, and setttings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="outputPackageName">Output name of the application package.</param>
+        /// <param name="contentDirectory">Directory for the content to be pack.</param>
+        /// <example>
+        /// <code>
+        ///     AppPack("test.appx", Directory("package-content")); 
+        /// </code>
+        /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Pack")]
         [CakeNamespaceImport("Cake.AppPackager.Pack")]
-        public static void AppPack(this ICakeContext context, string outputPackageName, IDirectory contentDirectory, AppPackagerSettings settings) {
+        public static void AppPack(this ICakeContext context, string outputPackageName, DirectoryPath contentDirectory)
+        {
+            AppPack(context, outputPackageName, contentDirectory, new AppPackagerSettings());
+        }
+
+        /// <summary>
+        /// Create an application package using the specificed output name, content, and setttings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="outputPackageName">Output name of the application package.</param>
+        /// <param name="contentDirectory">Directory for the content to be pack.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        ///     AppPack("test.appx", Directory("package-content"), new AppPackagerSettings { OverwriteOutput = true }); 
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Pack")]
+        [CakeNamespaceImport("Cake.AppPackager.Pack")]
+        public static void AppPack(this ICakeContext context, string outputPackageName, DirectoryPath contentDirectory, AppPackagerSettings settings) {
             if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
@@ -32,14 +63,43 @@ namespace Cake.AppPackager {
             var packer = new AppPacker(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools, resolver);
             packer.Pack(outputPackageName, contentDirectory, settings);
         }
-        
+
+        /// <summary>
+        /// Create an application package using the specificed output name, AppxManifest, and setttings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="outputPackageName">Output name of the application package.</param>
+        /// <param name="mappingFile">A a valid package manifest, AppxManifest.xml.</param>
+        /// <example>
+        /// <code>
+        ///     AppPack("test.appx", File("AppXManfist.xml")); 
+        /// </code>
+        /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Pack")]
         [CakeNamespaceImport("Cake.AppPackager.Pack")]
-        public static void AppPack(this ICakeContext context, string outputPackageName, IFile mappingFile, AppPackagerSettings settings)
+        public static void AppPack(this ICakeContext context, string outputPackageName, IFile mappingFile)
         {
-            if (context == null)
-            {
+           AppPack(context, outputPackageName, mappingFile, new AppPackagerSettings());
+        }
+
+        /// <summary>
+        /// Create an application package using the specificed output name, AppxManifest, and setttings.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="outputPackageName">Output name of the application package.</param>
+        /// <param name="mappingFile">A a valid package manifest, AppxManifest.xml.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        ///     AppPack("test.appx", File("AppXManfist.xml"), new AppPackagerSettings { OverwriteOutput = true }); 
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Pack")]
+        [CakeNamespaceImport("Cake.AppPackager.Pack")]
+        public static void AppPack(this ICakeContext context, string outputPackageName, IFile mappingFile, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
@@ -48,28 +108,63 @@ namespace Cake.AppPackager {
             packer.Pack(outputPackageName, mappingFile, settings);
         }
 
+        /// <summary>
+        /// The App Packager unpacker used to unpack applications.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="inputPackage">Package to unpack.</param>
+        /// <param name="outputDirectory">Location to unpack.</param>
+        /// <example>
+        /// <code>
+        ///     AppUnpack(File("test.appx"), Directory("unpacked")); 
+        /// </code>
+        /// </example>
         [CakeMethodAlias]
         [CakeAliasCategory("Unpack")]
         [CakeNamespaceImport("Cake.AppPackager.Unpack")]
-        public static void AppUnpack(this ICakeContext context, string inputPackageName, IDirectory outputDirectory, AppPackagerSettings settings)
+        public static void AppUnpack(this ICakeContext context, IFile inputPackage, DirectoryPath outputDirectory)
         {
-            if (context == null)
-            {
+           AppUnpack(context, inputPackage, outputDirectory, new AppPackagerSettings());
+        }
+
+        /// <summary>
+        /// The App Packager unpacker used to unpack applications.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="inputPackage">Package to unpack.</param>
+        /// <param name="outputDirectory">Location to unpack.</param>
+        /// <param name="settings">The settings.</param>
+        /// <example>
+        /// <code>
+        ///     AppUnpack(File("test.appx"), Directory("unpacked"), new AppPackagerSettings { OverwriteOutput = true }); 
+        /// </code>
+        /// </example>
+        [CakeMethodAlias]
+        [CakeAliasCategory("Unpack")]
+        [CakeNamespaceImport("Cake.AppPackager.Unpack")]
+        public static void AppUnpack(this ICakeContext context, IFile inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
             var resolver = new AppPackagerResolver(context.FileSystem, context.Environment, context.Tools, context.Registry);
             var unPacker = new AppUnpacker(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools, resolver);
-            unPacker.Unpack(inputPackageName, outputDirectory, settings);
+            unPacker.Unpack(inputPackage, outputDirectory, settings);
         }
 
         [CakeMethodAlias]
         [CakeAliasCategory("Bundle")]
         [CakeNamespaceImport("Cake.AppPackager.Bundle")]
-        public static void AppBundle(this ICakeContext context, string outputBundleName, IDirectory contentDirectory, AppPackagerSettings settings)
+        public static void AppBundle(this ICakeContext context, string outputBundleName, DirectoryPath contentDirectory)
         {
-            if (context == null)
-            {
+            AppBundle(context, outputBundleName, contentDirectory, new AppPackagerSettings());
+        }
+
+        [CakeMethodAlias]
+        [CakeAliasCategory("Bundle")]
+        [CakeNamespaceImport("Cake.AppPackager.Bundle")]
+        public static void AppBundle(this ICakeContext context, string outputBundleName, DirectoryPath contentDirectory, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
@@ -81,10 +176,16 @@ namespace Cake.AppPackager {
         [CakeMethodAlias]
         [CakeAliasCategory("Bundle")]
         [CakeNamespaceImport("Cake.AppPackager.Bundle")]
-        public static void AppBundle(this ICakeContext context, string outputBundleName, IFile mappingFile, AppPackagerSettings settings)
+        public static void AppBundle(this ICakeContext context, string outputBundleName, IFile mappingFile)
         {
-            if (context == null)
-            {
+           AppBundle(context, outputBundleName, mappingFile, new AppPackagerSettings());
+        }
+
+        [CakeMethodAlias]
+        [CakeAliasCategory("Bundle")]
+        [CakeNamespaceImport("Cake.AppPackager.Bundle")]
+        public static void AppBundle(this ICakeContext context, string outputBundleName, IFile mappingFile, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
@@ -96,46 +197,64 @@ namespace Cake.AppPackager {
         [CakeMethodAlias]
         [CakeAliasCategory("Unbundle")]
         [CakeNamespaceImport("Cake.AppPackager.Unbundle")]
-        public static void AppUnbundle(this ICakeContext context, string inputBundleName, IDirectory outputDirectory, AppPackagerSettings settings)
+        public static void AppUnbundle(this ICakeContext context, IFile inputBundle, DirectoryPath outputDirectory)
         {
-            if (context == null)
-            {
+          AppUnbundle(context, inputBundle, outputDirectory, new AppPackagerSettings());
+        }
+
+        [CakeMethodAlias]
+        [CakeAliasCategory("Unbundle")]
+        [CakeNamespaceImport("Cake.AppPackager.Unbundle")]
+        public static void AppUnbundle(this ICakeContext context, IFile inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
             var resolver = new AppPackagerResolver(context.FileSystem, context.Environment, context.Tools, context.Registry);
             var unBundler = new AppUnbundler(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools, resolver);
-            unBundler.Unpack(inputBundleName, outputDirectory, settings);
+            unBundler.Unpack(inputBundle, outputDirectory, settings);
         }
 
         [CakeMethodAlias]
         [CakeAliasCategory("Encrypter")]
         [CakeNamespaceImport("Cake.AppPackager.Encrypt")]
-        public static void AppEncrypter(this ICakeContext context, string inputPackageName, string outputPackageName, IFile keyFile, AppPackagerSettings settings)
+        public static void AppEncrypter(this ICakeContext context, IFile inputPackage, string outputPackageName, IFile keyFile)
         {
-            if (context == null)
-            {
+           AppEncrypter(context, inputPackage, outputPackageName, keyFile, new AppPackagerSettings());
+        }
+
+        [CakeMethodAlias]
+        [CakeAliasCategory("Encrypter")]
+        [CakeNamespaceImport("Cake.AppPackager.Encrypt")]
+        public static void AppEncrypter(this ICakeContext context, IFile inputPackage, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
             var resolver = new AppPackagerResolver(context.FileSystem, context.Environment, context.Tools, context.Registry);
             var encrypter = new AppEncrypter(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools, resolver);
-            encrypter.Encrypt(inputPackageName, outputPackageName, keyFile, settings);
+            encrypter.Encrypt(inputPackage, outputPackageName, keyFile, settings);
         }
 
         [CakeMethodAlias]
         [CakeAliasCategory("Decrypter")]
         [CakeNamespaceImport("Cake.AppPackager.Decrypt")]
-        public static void AppDecrypter(this ICakeContext context, string inputPackageName, string outputPackageName, IFile keyFile, AppPackagerSettings settings)
+        public static void AppDecrypter(this ICakeContext context, IFile inputPackage, string outputPackageName, IFile keyFile)
         {
-            if (context == null)
-            {
+           AppDecrypter(context, inputPackage, outputPackageName, keyFile, new AppPackagerSettings());
+        }
+
+        [CakeMethodAlias]
+        [CakeAliasCategory("Decrypter")]
+        [CakeNamespaceImport("Cake.AppPackager.Decrypt")]
+        public static void AppDecrypter(this ICakeContext context, IFile inputPackage, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
+            if (context == null) {
                 throw new ArgumentNullException(nameof(context));
             }
 
             var resolver = new AppPackagerResolver(context.FileSystem, context.Environment, context.Tools, context.Registry);
             var decrypter = new AppDecrypter(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools, resolver);
-            decrypter.Decrypt(inputPackageName, outputPackageName, keyFile, settings);
+            decrypter.Decrypt(inputPackage, outputPackageName, keyFile, settings);
         }
     }
 }

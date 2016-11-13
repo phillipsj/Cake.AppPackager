@@ -29,12 +29,12 @@ namespace Cake.AppPackager.Unpack {
         /// <summary>
         /// Unpacks an application package with the same structure as installed package.
         /// </summary>
-        /// <param name="inputPackageName">Input name of the application package.</param>
+        /// <param name="inputPackage">Application package to unpack.</param>
         /// <param name="outputDirectory">Output directory to unpack the application.</param>
         /// <param name="settings">The settings.</param>
-        public void Unpack(string inputPackageName, IDirectory outputDirectory, AppPackagerSettings settings) {
-            if (string.IsNullOrWhiteSpace(inputPackageName)) {
-                throw new ArgumentNullException(nameof(inputPackageName));
+        public void Unpack(IFile inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+            if (inputPackage == null) {
+                throw new ArgumentNullException(nameof(inputPackage));
             }
             if (outputDirectory == null) {
                 throw new ArgumentNullException(nameof(outputDirectory));
@@ -43,18 +43,18 @@ namespace Cake.AppPackager.Unpack {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            Run(settings, GetArguments(inputPackageName, outputDirectory, settings));
+            Run(settings, GetArguments(inputPackage, outputDirectory, settings));
         }
         
-        private ProcessArgumentBuilder GetArguments(string inputPackageName, IDirectory outputDirectory, AppPackagerSettings settings) {
+        private ProcessArgumentBuilder GetArguments(IFile inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
             builder.Append("unpack");
 
             builder.Append("/p");
-            builder.AppendQuoted(inputPackageName);
+            builder.AppendQuoted(inputPackage.Path.MakeAbsolute(_environment).FullPath);
 
             builder.Append("/d");
-            builder.AppendQuoted(outputDirectory.ToString());
+            builder.AppendQuoted(outputDirectory.MakeAbsolute(_environment).FullPath);
 
             AddSwitchArguments(builder, settings);
             return builder;

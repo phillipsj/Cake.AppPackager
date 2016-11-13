@@ -32,7 +32,7 @@ namespace Cake.AppPackager.Pack {
         /// <param name="outputPackageName">Output name of the application package.</param>
         /// <param name="contentDirectory">Directory for the content to be pack.</param>
         /// <param name="settings">The settings.</param>
-        public void Pack(string outputPackageName, IDirectory contentDirectory, AppPackagerSettings settings) {
+        public void Pack(string outputPackageName, DirectoryPath contentDirectory, AppPackagerSettings settings) {
             if (string.IsNullOrWhiteSpace(outputPackageName)) {
                 throw new ArgumentNullException(nameof(outputPackageName));
             }
@@ -66,7 +66,7 @@ namespace Cake.AppPackager.Pack {
             Run(settings, GetArguments(outputPackageName, null, mappingFile, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string outputPackageName, IDirectory contentDirectory, IFile mappingFile, AppPackagerSettings settings) {
+        private ProcessArgumentBuilder GetArguments(string outputPackageName, DirectoryPath contentDirectory, IFile mappingFile, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
             builder.Append("pack");
 
@@ -75,12 +75,12 @@ namespace Cake.AppPackager.Pack {
 
             if (contentDirectory != null) {
                 builder.Append("/d");
-                builder.AppendQuoted(contentDirectory.ToString());
+                builder.AppendQuoted(contentDirectory.MakeAbsolute(_environment).FullPath);
             }
 
             if (mappingFile != null) {
                 builder.Append("/f");
-                builder.AppendQuoted(mappingFile.ToString());
+                builder.AppendQuoted(mappingFile.Path.MakeAbsolute(_environment).FullPath);
             }
 
             AddSwitchArguments(builder, settings);

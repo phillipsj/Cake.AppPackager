@@ -29,14 +29,12 @@ namespace Cake.AppPackager.Decrypt {
         /// <summary>
         /// Creates an encrypted app package from the specified input app package at the specified output package.
         /// </summary>
-        /// <param name="inputPackageName">Input name of the application package.</param>
+        /// <param name="inputPackage">Input name of the application package.</param>
         /// <param name="outputPackageName">Output package name.</param>
         /// <param name="keyFile">Keyfile to use for encryption, if not provided, the global test key will be used.</param>
         /// <param name="settings">The settings.</param>
-        public void Decrypt(string inputPackageName, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
-            if (string.IsNullOrWhiteSpace(inputPackageName)) {
-                throw new ArgumentNullException(nameof(inputPackageName));
-            }
+        public void Decrypt(IFile inputPackage, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
+            if (inputPackage == null) throw new ArgumentNullException(nameof(inputPackage));
             if (outputPackageName == null) {
                 throw new ArgumentNullException(nameof(outputPackageName));
             }
@@ -44,15 +42,15 @@ namespace Cake.AppPackager.Decrypt {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            Run(settings, GetArguments(inputPackageName, outputPackageName, keyFile, settings));
+            Run(settings, GetArguments(inputPackage, outputPackageName, keyFile, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string inputBundleName, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
+        private ProcessArgumentBuilder GetArguments(IFile inputPackage, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
             builder.Append("encrypt ");
 
             builder.Append("/p");
-            builder.AppendQuoted(inputBundleName);
+            builder.AppendQuoted(inputPackage.Path.MakeAbsolute(_environment).FullPath);
 
             builder.Append("/ep");
             builder.AppendQuoted(outputPackageName);
@@ -62,7 +60,7 @@ namespace Cake.AppPackager.Decrypt {
             }
             else {
                 builder.Append("/kf");
-                builder.AppendQuoted(keyFile.Path.FullPath);
+                builder.AppendQuoted(keyFile.Path.MakeAbsolute(_environment).FullPath);
             }
 
             AddSwitchArguments(builder, settings);

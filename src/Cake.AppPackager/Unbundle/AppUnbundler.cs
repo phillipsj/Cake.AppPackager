@@ -31,37 +31,33 @@ namespace Cake.AppPackager.Unbundle
         /// <summary>
         /// Unpacks all packages to a subdirectory under the specified output path, named after the bundle full name. The output has the same directory structure as the installed package bundle.
         /// </summary>
-        /// <param name="inputBundleName">Input name of the application bundle..</param>
+        /// <param name="inputBundle">Input name of the application bundle..</param>
         /// <param name="outputDirectory">Output directory to unbundle the application.</param>
         /// <param name="settings">The settings.</param>
-        public void Unpack(string inputBundleName, IDirectory outputDirectory, AppPackagerSettings settings)
-        {
-            if (string.IsNullOrWhiteSpace(inputBundleName))
-            {
-                throw new ArgumentNullException(nameof(inputBundleName));
+        public void Unpack(IFile inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+            if (inputBundle == null) {
+                throw new ArgumentNullException(nameof(inputBundle));
             }
-            if (outputDirectory == null)
-            {
+            if (outputDirectory == null) {
                 throw new ArgumentNullException(nameof(outputDirectory));
             }
-            if (settings == null)
-            {
+            if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            Run(settings, GetArguments(inputBundleName, outputDirectory, settings));
+            Run(settings, GetArguments(inputBundle, outputDirectory, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string inputBundleName, IDirectory outputDirectory, AppPackagerSettings settings)
+        private ProcessArgumentBuilder GetArguments(IFile inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
             builder.Append("unbundle");
 
             builder.Append("/p");
-            builder.AppendQuoted(inputBundleName);
+            builder.AppendQuoted(inputBundle.Path.MakeAbsolute(_environment).FullPath);
 
             builder.Append("/d");
-            builder.AppendQuoted(outputDirectory.ToString());
+            builder.AppendQuoted(outputDirectory.MakeAbsolute(_environment).FullPath);
 
             AddSwitchArguments(builder, settings);
             return builder;
