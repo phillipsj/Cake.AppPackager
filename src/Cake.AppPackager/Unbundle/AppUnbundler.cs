@@ -34,7 +34,7 @@ namespace Cake.AppPackager.Unbundle
         /// <param name="inputBundle">Input name of the application bundle..</param>
         /// <param name="outputDirectory">Output directory to unbundle the application.</param>
         /// <param name="settings">The settings.</param>
-        public void Unpack(IFile inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+        public void Unpack(FilePath inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings) {
             if (inputBundle == null) {
                 throw new ArgumentNullException(nameof(inputBundle));
             }
@@ -48,13 +48,13 @@ namespace Cake.AppPackager.Unbundle
             Run(settings, GetArguments(inputBundle, outputDirectory, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(IFile inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings)
+        private ProcessArgumentBuilder GetArguments(FilePath inputBundle, DirectoryPath outputDirectory, AppPackagerSettings settings)
         {
             var builder = new ProcessArgumentBuilder();
             builder.Append("unbundle");
 
             builder.Append("/p");
-            builder.AppendQuoted(inputBundle.Path.MakeAbsolute(_environment).FullPath);
+            builder.AppendQuoted(inputBundle.MakeAbsolute(_environment).FullPath);
 
             builder.Append("/d");
             builder.AppendQuoted(outputDirectory.MakeAbsolute(_environment).FullPath);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
@@ -30,39 +31,39 @@ namespace Cake.AppPackager.Encrypt {
         /// Creates an encrypted app package from the specified input app package at the specified output package.
         /// </summary>
         /// <param name="inputPackage">Input name of the application package.</param>
-        /// <param name="outputPackageName">Output package name.</param>
+        /// <param name="outputPackage">Output package name.</param>
         /// <param name="keyFile">Keyfile to use for encryption, if not provided, the global test key will be used.</param>
         /// <param name="settings">The settings.</param>
-        public void Encrypt(IFile inputPackage, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
+        public void Encrypt(FilePath inputPackage, FilePath outputPackage, FilePath keyFile, AppPackagerSettings settings) {
             if (inputPackage == null) {
                 throw new ArgumentNullException(nameof(inputPackage));
             }
-            if (outputPackageName == null) {
-                throw new ArgumentNullException(nameof(outputPackageName));
+            if (outputPackage == null) {
+                throw new ArgumentNullException(nameof(outputPackage));
             }
             if (settings == null) {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            Run(settings, GetArguments(inputPackage, outputPackageName, keyFile, settings));
+            Run(settings, GetArguments(inputPackage, outputPackage, keyFile, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(IFile inputPackage, string outputPackageName, IFile keyFile, AppPackagerSettings settings) {
+        private ProcessArgumentBuilder GetArguments(FilePath inputPackage, FilePath outputPackage, FilePath keyFile, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
             builder.Append("encrypt ");
 
             builder.Append("/p");
-            builder.AppendQuoted(inputPackage.Path.MakeAbsolute(_environment).FullPath);
+            builder.AppendQuoted(inputPackage.MakeAbsolute(_environment).FullPath);
 
             builder.Append("/ep");
-            builder.AppendQuoted(outputPackageName);
+            builder.AppendQuoted(outputPackage.MakeAbsolute(_environment).FullPath);
 
             if (keyFile == null) {
                 builder.Append("/kt");
             }
             else {
                 builder.Append("/kf");
-                builder.AppendQuoted(keyFile.Path.MakeAbsolute(_environment).FullPath);
+                builder.AppendQuoted(keyFile.MakeAbsolute(_environment).FullPath);
             }
 
             AddSwitchArguments(builder, settings);

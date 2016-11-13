@@ -29,12 +29,12 @@ namespace Cake.AppPackager.Bundle {
         /// <summary>
         /// Create an application bundle using the specificed output name, content, and setttings.
         /// </summary>
-        /// <param name="outputBundleName">Output name of the application bundle.</param>
+        /// <param name="outputBundle">Output name of the application bundle.</param>
         /// <param name="contentDirectory">Directory for the content to be pack.</param>
         /// <param name="settings">The settings.</param>
-        public void Bundle(string outputBundleName, DirectoryPath contentDirectory, AppPackagerSettings settings) {
-            if (string.IsNullOrWhiteSpace(outputBundleName)) {
-                throw new ArgumentNullException(nameof(outputBundleName));
+        public void Bundle(FilePath outputBundle, DirectoryPath contentDirectory, AppPackagerSettings settings) {
+            if (outputBundle == null) {
+                throw new ArgumentNullException(nameof(outputBundle));
             }
             if (contentDirectory == null) {
                 throw new ArgumentNullException(nameof(contentDirectory));
@@ -43,18 +43,18 @@ namespace Cake.AppPackager.Bundle {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            Run(settings, GetArguments(outputBundleName, contentDirectory, null, settings));
+            Run(settings, GetArguments(outputBundle, contentDirectory, null, settings));
         }
 
         /// <summary>
         /// Create an application package using the specificed output name, mapping file, and setttings.
         /// </summary>
-        /// <param name="outputBundleName">Output name of the application package.</param>
+        /// <param name="outputBundle">Output name of the application package.</param>
         /// <param name="mappingFile">Mapping file to be used.</param>
         /// <param name="settings">The settings.</param>
-        public void Bundle(string outputBundleName, IFile mappingFile, AppPackagerSettings settings) {
-            if (string.IsNullOrWhiteSpace(outputBundleName)) {
-                throw new ArgumentNullException(nameof(outputBundleName));
+        public void Bundle(FilePath outputBundle, FilePath mappingFile, AppPackagerSettings settings) {
+            if (outputBundle == null) {
+                throw new ArgumentNullException(nameof(outputBundle));
             }
             if (mappingFile == null) {
                 throw new ArgumentNullException(nameof(mappingFile));
@@ -63,15 +63,15 @@ namespace Cake.AppPackager.Bundle {
                 throw new ArgumentNullException(nameof(settings));
             }
 
-            Run(settings, GetArguments(outputBundleName, null, mappingFile, settings));
+            Run(settings, GetArguments(outputBundle, null, mappingFile, settings));
         }
 
-        private ProcessArgumentBuilder GetArguments(string outputBundleName, DirectoryPath contentDirectory, IFile mappingFile, AppPackagerSettings settings) {
+        private ProcessArgumentBuilder GetArguments(FilePath outputBundle, DirectoryPath contentDirectory, FilePath mappingFile, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
             builder.Append("bundle");
 
             builder.Append("/p");
-            builder.AppendQuoted(outputBundleName);
+            builder.AppendQuoted(outputBundle.MakeAbsolute(_environment).FullPath);
 
             if (contentDirectory != null) {
                 builder.Append("/d");
@@ -80,7 +80,7 @@ namespace Cake.AppPackager.Bundle {
 
             if (mappingFile != null) {
                 builder.Append("/f");
-                builder.AppendQuoted(mappingFile.Path.MakeAbsolute(_environment).FullPath);
+                builder.AppendQuoted(mappingFile.MakeAbsolute(_environment).FullPath);
             }
 
             AddSwitchArguments(builder, settings);

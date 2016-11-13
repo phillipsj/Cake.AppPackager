@@ -32,7 +32,7 @@ namespace Cake.AppPackager.Unpack {
         /// <param name="inputPackage">Application package to unpack.</param>
         /// <param name="outputDirectory">Output directory to unpack the application.</param>
         /// <param name="settings">The settings.</param>
-        public void Unpack(IFile inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+        public void Unpack(FilePath inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
             if (inputPackage == null) {
                 throw new ArgumentNullException(nameof(inputPackage));
             }
@@ -46,12 +46,12 @@ namespace Cake.AppPackager.Unpack {
             Run(settings, GetArguments(inputPackage, outputDirectory, settings));
         }
         
-        private ProcessArgumentBuilder GetArguments(IFile inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
+        private ProcessArgumentBuilder GetArguments(FilePath inputPackage, DirectoryPath outputDirectory, AppPackagerSettings settings) {
             var builder = new ProcessArgumentBuilder();
             builder.Append("unpack");
 
             builder.Append("/p");
-            builder.AppendQuoted(inputPackage.Path.MakeAbsolute(_environment).FullPath);
+            builder.AppendQuoted(inputPackage.MakeAbsolute(_environment).FullPath);
 
             builder.Append("/d");
             builder.AppendQuoted(outputDirectory.MakeAbsolute(_environment).FullPath);
