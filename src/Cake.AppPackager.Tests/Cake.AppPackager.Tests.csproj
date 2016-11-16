@@ -58,6 +58,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UglyToad.Fixie.DataDriven, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UglyToad.Fixie.DataDriven.1.4.0\lib\net45\UglyToad.Fixie.DataDriven.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
@@ -72,11 +76,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppPackagerResolverTests.cs" />
     <Compile Include="AppPackerTests.cs" />
+    <Compile Include="DataConvention.cs" />
     <Compile Include="Fixtures\AppBundlerFixture.cs" />
     <Compile Include="Fixtures\AppDecrypterFixture.cs" />
     <Compile Include="Fixtures\AppEncrypterFixture.cs" />
     <Compile Include="Fixtures\AppPackagerFixture.cs" />
+    <Compile Include="Fixtures\AppPackagerResolverFixture.cs" />
     <Compile Include="Fixtures\AppPackerFixture.cs" />
     <Compile Include="Fixtures\AppUnbundlerFixture.cs" />
     <Compile Include="Fixtures\AppUnpackerFixture.cs" />

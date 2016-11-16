@@ -56,9 +56,7 @@ namespace Cake.AppPackager {
         }
 
         private IFile GetFromDisc() {
-            var programFilesPath = _environment.Platform.Is64Bit
-                ? _environment.GetSpecialPath(SpecialPath.ProgramFilesX86)
-                : _environment.GetSpecialPath(SpecialPath.ProgramFiles);
+            var programFilesPath = _environment.GetSpecialPath(SpecialPath.ProgramFilesX86);
 
             var files = new List<FilePath>();
             if (_environment.Platform.Is64Bit) {
@@ -67,7 +65,7 @@ namespace Cake.AppPackager {
                 files.Add(programFilesPath.Combine(@"Windows Kits\8.0\bin\x64").CombineWithFilePath("makeappx.exe"));
             }
             else {
-                files.Add(programFilesPath.Combine(@"Windows Kits\10\bin\x64").CombineWithFilePath("makeappx.exe"));
+                files.Add(programFilesPath.Combine(@"Windows Kits\10\bin\x86").CombineWithFilePath("makeappx.exe"));
                 files.Add(programFilesPath.Combine(@"Windows Kits\8.1\bin\x86").CombineWithFilePath("makeappx.exe"));
                 files.Add(programFilesPath.Combine(@"Windows Kits\8.0\bin\x86").CombineWithFilePath("makeappx.exe"));
             }
@@ -77,7 +75,7 @@ namespace Cake.AppPackager {
         }
 
         private IFile GetFromRegistry() {
-            using (var root = _registry.LocalMachine.OpenKey("Software\\Microsoft\\Microsoft SDKs\\Windows")) {
+            using (var root = _registry.LocalMachine.OpenKey("Software\\Microsoft\\Windows Kits\\Install Roots")) {
                 if (root == null) {
                     return null;
                 }
@@ -85,13 +83,13 @@ namespace Cake.AppPackager {
                 var keyName = root.GetSubKeyNames();
                 foreach (var key in keyName) {
                     var sdkKey = root.OpenKey(key);
-                    var installationFolder = sdkKey?.GetValue("InstallationFolder") as string;
+                    var installationFolder = sdkKey?.GetValue("KitsRoot10") as string;
                     if (string.IsNullOrWhiteSpace(installationFolder)) continue;
                     var installationPath = new DirectoryPath(installationFolder);
-                    var signToolPath = installationPath.CombineWithFilePath("bin\\makeappx.exe");
+                    var appPackagerToolPath = installationPath.CombineWithFilePath("bin\\x64\\makeappx.exe");
 
-                    if (_fileSystem.Exist(signToolPath)) {
-                        return _fileSystem.GetFile(signToolPath);
+                    if (_fileSystem.Exist(appPackagerToolPath)) {
+                        return _fileSystem.GetFile(appPackagerToolPath);
                     }
                 }
             }
