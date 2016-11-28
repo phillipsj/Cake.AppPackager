@@ -11,7 +11,7 @@ namespace Cake.AppPackager {
         private readonly ICakeEnvironment _environment;
         private readonly IToolLocator _tools;
         private readonly IRegistry _registry;
-        private IFile _cachedPath;
+        private FilePath _cachedPath;
 
         public AppPackagerResolver(IFileSystem fileSystem, ICakeEnvironment environment, IToolLocator tools, IRegistry registry) {
             if (fileSystem == null) {
@@ -34,28 +34,24 @@ namespace Cake.AppPackager {
         }
 
         public FilePath ResolvePath() {
-            if (_cachedPath != null && _cachedPath.Exists) {
-                return _cachedPath.Path;
+            if (_cachedPath != null) {
+                return _cachedPath;
             }
 
             var toolsExe = _tools.Resolve("makeappx.exe");
             if (toolsExe != null) {
-                var toolsFile = _fileSystem.GetFile(toolsExe);
-                if (toolsFile.Exists) {
-                    _cachedPath = toolsFile;
-                    return _cachedPath.Path;
-                }
+                _cachedPath = toolsExe;
+                return _cachedPath;
             }
 
             _cachedPath = GetFromDisc() ?? GetFromRegistry();
             if (_cachedPath == null) {
                 throw new CakeException("Failed to find MakeAppx.exe.");
             }
-
-            return _cachedPath.Path;
+            return _cachedPath;
         }
 
-        private IFile GetFromDisc() {
+        private FilePath GetFromDisc() {
             var programFilesPath = _environment.GetSpecialPath(SpecialPath.ProgramFilesX86);
 
             var files = new List<FilePath>();
@@ -69,27 +65,27 @@ namespace Cake.AppPackager {
                 files.Add(programFilesPath.Combine(@"Windows Kits\8.1\bin\x86").CombineWithFilePath("makeappx.exe"));
                 files.Add(programFilesPath.Combine(@"Windows Kits\8.0\bin\x86").CombineWithFilePath("makeappx.exe"));
             }
-
-
-            return _fileSystem.GetFile(files.FirstOrDefault(file => _fileSystem.Exist(file)));
+            return files.FirstOrDefault(file => _fileSystem.Exist(file));
         }
 
-        private IFile GetFromRegistry() {
+        private FilePath GetFromRegistry() {
             using (var root = _registry.LocalMachine.OpenKey("Software\\Microsoft\\Windows Kits\\Install Roots")) {
                 if (root == null) {
                     return null;
                 }
-
                 var keyName = root.GetSubKeyNames();
                 foreach (var key in keyName) {
                     var sdkKey = root.OpenKey(key);
                     var installationFolder = sdkKey?.GetValue("KitsRoot10") as string;
+                    if (string.IsNullOrWhiteSpace(installationFolder)) installationFolder = sdkKey?.GetValue("KitsRoot81") as string;
                     if (string.IsNullOrWhiteSpace(installationFolder)) continue;
                     var installationPath = new DirectoryPath(installationFolder);
-                    var appPackagerToolPath = installationPath.CombineWithFilePath("bin\\x64\\makeappx.exe");
-
+                    var appPackagerToolPath = installationPath.CombineWithFilePath("bin\\x86\\makeappx.exe");
+                    if (_environment.Platform.Is64Bit) {
+                        appPackagerToolPath = installationPath.CombineWithFilePath("bin\\x64\\makeappx.exe");
+                    }
                     if (_fileSystem.Exist(appPackagerToolPath)) {
-                        return _fileSystem.GetFile(appPackagerToolPath);
+                        return appPackagerToolPath;
                     }
                 }
             }

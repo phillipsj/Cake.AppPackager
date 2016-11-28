@@ -60,7 +60,7 @@ namespace Cake.AppPackager.Tests
         }
         
         [InlineData(false)]
-       // [InlineData(false)]
+        [InlineData(true)]
         public void ShouldReturnFromDiscIfFound(bool is64Bit)
         {
             // Given

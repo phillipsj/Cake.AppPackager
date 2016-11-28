@@ -30,18 +30,18 @@ namespace Cake.AppPackager.Tests.Fixtures
         {
             if (_is64Bit)
             {
-                FileSystem.Exist(Arg.Is<FilePath>(p => p.FullPath == @"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe")).Returns(true);
+                FileSystem.Exist(Arg.Is<FilePath>(p => p.FullPath == @"C:/Program Files (x86)/Windows Kits/10/bin/x64/makeappx.exe")).Returns(true);
             }
             else
             {
-                FileSystem.Exist(Arg.Is<FilePath>(p => p.FullPath == @"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe")).Returns(true);
+                FileSystem.Exist(Arg.Is<FilePath>(p => p.FullPath == @"C:/Program Files (x86)/Windows Kits/10/bin/x86/makeappx.exe")).Returns(true);
             }
         }
 
         public void GivenThatToolHasRegistryKey()
         {
             var appPackagerKey = Substitute.For<IRegistryKey>();
-            appPackagerKey.GetValue("KitsRoot10").Returns(@"C:\Program Files (x86)\Windows Kits\10\");
+            appPackagerKey.GetValue("KitsRoot10").Returns(@"C:/Program Files (x86)/Windows Kits/10/");
 
             var windowsKey = Substitute.For<IRegistryKey>();
             windowsKey.GetSubKeyNames().Returns(new[] { "KitsRoot10" });
@@ -49,8 +49,8 @@ namespace Cake.AppPackager.Tests.Fixtures
 
             var localMachine = Substitute.For<IRegistryKey>();
             localMachine.OpenKey("Software\\Microsoft\\Windows Kits\\Install Roots").Returns(windowsKey);
-
-            FileSystem.Exist(Arg.Is<FilePath>(p => p.FullPath == @"C:\Program Files (x86)\Windows Kits\10\bin\x64\makeappx.exe")).Returns(true);
+            var toolPath = _is64Bit ? @"C:/Program Files (x86)/Windows Kits/10/bin/x64/makeappx.exe" : @"C:/Program Files (x86)/Windows Kits/10/bin/x86/makeappx.exe";
+            FileSystem.Exist(Arg.Is<FilePath>(p => p.FullPath == toolPath)).Returns(true);
             Registry.LocalMachine.Returns(localMachine);
         }
 
