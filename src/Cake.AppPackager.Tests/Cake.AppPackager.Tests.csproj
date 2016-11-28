@@ -76,8 +76,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppUnbundlerTests.cs" />
     <Compile Include="AppPackagerResolverTests.cs" />
     <Compile Include="AppPackerTests.cs" />
+    <Compile Include="AppUnpackerTests.cs" />
     <Compile Include="DataConvention.cs" />
     <Compile Include="Fixtures\AppBundlerFixture.cs" />
     <Compile Include="Fixtures\AppDecrypterFixture.cs" />
