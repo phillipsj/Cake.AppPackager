@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.AppPackager", "Cake.AppPackager\Cake.AppPackager.csproj", "{1884E6AA-8468-4C87-8991-FEAC97090BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.AppPackager.Tests", "Cake.AppPackager.Tests\Cake.AppPackager.Tests.csproj", "{C915FA69-0024-4BE1-AC61-14882DA98421}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1884E6AA-8468-4C87-8991-FEAC97090BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1884E6AA-8468-4C87-8991-FEAC97090BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1884E6AA-8468-4C87-8991-FEAC97090BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1884E6AA-8468-4C87-8991-FEAC97090BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C915FA69-0024-4BE1-AC61-14882DA98421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C915FA69-0024-4BE1-AC61-14882DA98421}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C915FA69-0024-4BE1-AC61-14882DA98421}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C915FA69-0024-4BE1-AC61-14882DA98421}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

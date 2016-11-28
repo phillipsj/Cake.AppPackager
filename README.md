@@ -4,6 +4,8 @@ A Cake Addin for [App packager](https://msdn.microsoft.com/en-us/library/windows
 
 [![Build status](https://ci.appveyor.com/api/projects/status/vj5f1md7k7jucml7?svg=true)](https://ci.appveyor.com/project/phillipsj/cake-apppackager)
 
+[![beta-cake-addins MyGet Build Status](https://www.myget.org/BuildSource/Badge/beta-cake-addins?identifier=c7cc134c-76de-4521-866e-77369a097ab0)](https://www.myget.org/)
+
 [![cakebuild.net](https://img.shields.io/badge/WWW-cakebuild.net-blue.svg)](http://cakebuild.net/)
 
 [![Join the chat at https://gitter.im/cake-build/cake](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/cake-build/cake?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
