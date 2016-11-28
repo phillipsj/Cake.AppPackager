@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Cake.AppPackager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Cake Addin for working with Microsoft App Packager")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Jamie Phillips")]
 [assembly: AssemblyProduct("Cake.AppPackager")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]

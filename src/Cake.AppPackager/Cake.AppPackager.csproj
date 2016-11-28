@@ -51,7 +51,6 @@
     <Compile Include="Bundle\AppBundler.cs" />
     <Compile Include="Decrypt\AppDecrypter.cs" />
     <Compile Include="Encrypt\AppEncrypter.cs" />
-    <Compile Include="HashAlgorithm.cs" />
     <Compile Include="IAppPackagerResolver.cs" />
     <Compile Include="Pack\AppPacker.cs" />
     <Compile Include="ProcessBuilderExtensionsMethods.cs" />
