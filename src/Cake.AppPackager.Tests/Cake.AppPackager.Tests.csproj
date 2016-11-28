@@ -76,6 +76,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppBundlerTests.cs" />
+    <Compile Include="AppDecrypterTests.cs" />
+    <Compile Include="AppEncrypterTests.cs" />
     <Compile Include="AppUnbundlerTests.cs" />
     <Compile Include="AppPackagerResolverTests.cs" />
     <Compile Include="AppPackerTests.cs" />

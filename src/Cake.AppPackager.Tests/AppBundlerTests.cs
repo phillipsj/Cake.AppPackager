@@ -7,12 +7,12 @@ using Should.Core.Assertions;
 
 namespace Cake.AppPackager.Tests
 {
-    public sealed class AppUnbundlerTests
+    public sealed class AppBundlerTests
     {
-        public void ShouldThrowIfAppUnbundlerExecutableWasNotFound()
+        public void ShouldThrowIfAppPackerExecutableWasNotFound()
         {
             // Given
-            var fixture = new AppUnbundlerFixture() { InputBundle = "test.appx", OutputDirectory = "output" };
+            var fixture = new AppBundlerFixture() { OutputBundle = "test.appx", ContentDirectory = "content" };
             fixture.GivenDefaultToolDoNotExist();
 
             // When
@@ -23,28 +23,28 @@ namespace Cake.AppPackager.Tests
             result.Message.ShouldEqual("App Packager: Could not locate executable.");
         }
 
-        public void ShouldThrowIfInputPackageIsNull()
+        public void ShouldThrowIfOutputBundleIsNull()
         {
             // Given
-            var fixture = new AppUnbundlerFixture() { OutputDirectory = "output" };
+            var fixture = new AppBundlerFixture() { ContentDirectory = "content" };
 
             // When
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("inputBundle");
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputBundle");
         }
 
-        public void ShouldThrowIfOutputDirectoryIsNull()
+        public void ShouldThrowIfContentDirectoryIsNull()
         {
             // Given
-            var fixture = new AppUnbundlerFixture() { InputBundle = "test.appx" };
+            var fixture = new AppBundlerFixture() { OutputBundle = "test.appx" };
 
             // When
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputDirectory");
+            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("contentDirectory");
         }
     }
 }
