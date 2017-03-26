@@ -12,6 +12,14 @@ namespace Cake.AppPackager {
     public abstract class AppPackagerTool<TSettings> : Tool<TSettings> where TSettings : ToolSettings {
         private readonly IAppPackagerResolver _resolver;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppPackagerTool{TSettings}" /> class.
+        /// </summary>
+        /// <param name="fileSystem">The file system.</param>
+        /// <param name="environment">The environment.</param>
+        /// <param name="processRunner">The process runner.</param>
+        /// <param name="tools">The tool locator.</param>
+        /// <param name="resolver">The App Packager tool resolver.</param>
         protected AppPackagerTool(IFileSystem fileSystem,
             ICakeEnvironment environment,
             IProcessRunner processRunner,
