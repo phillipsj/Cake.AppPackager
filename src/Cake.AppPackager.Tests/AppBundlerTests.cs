@@ -3,12 +3,14 @@ using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
 using Cake.Testing;
 using Should;
-using Should.Core.Assertions;
+using Xunit;
+using Record = Should.Core.Assertions.Record;
 
 namespace Cake.AppPackager.Tests
 {
     public sealed class AppBundlerTests
     {
+        [Fact]
         public void ShouldThrowIfAppPackerExecutableWasNotFound()
         {
             // Given
@@ -23,6 +25,7 @@ namespace Cake.AppPackager.Tests
             result.Message.ShouldEqual("App Packager: Could not locate executable.");
         }
 
+        [Fact]
         public void ShouldThrowIfOutputBundleIsNull()
         {
             // Given
@@ -35,6 +38,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputBundle");
         }
 
+        [Fact]
         public void ShouldThrowIfContentDirectoryIsNull()
         {
             // Given

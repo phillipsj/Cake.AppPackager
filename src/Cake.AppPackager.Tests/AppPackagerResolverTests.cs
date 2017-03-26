@@ -2,13 +2,14 @@
 using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
 using Should;
-using Should.Core.Assertions;
-using UglyToad.Fixie.DataDriven;
+using Xunit;
+using Record = Should.Core.Assertions.Record;
 
 namespace Cake.AppPackager.Tests
 {
     public sealed class AppPackagerResolverTests
     {
+        [Fact]
         public void ShouldThrowIfFileSystemIsNull() {
             // Given
             var fixture = new AppPackagerResolverFixture();
@@ -21,6 +22,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("fileSystem");
         }
 
+        [Fact]
         public void ShouldThrowIfEnvironmentIsNull() {
             // Given
             var fixture = new AppPackagerResolverFixture();
@@ -33,6 +35,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("environment");
         }
 
+        [Fact]
         public void ShouldThrowIfRegistryIsNull()
         {
             // Given
@@ -46,6 +49,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("registry");
         }
 
+        [Fact]
         public void ShouldThrowIfToolsIsNull()
         {
             // Given
@@ -59,6 +63,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("tools");
         }
         
+        [Theory]
         [InlineData(false)]
         [InlineData(true)]
         public void ShouldReturnFromDiscIfFound(bool is64Bit)
@@ -73,7 +78,8 @@ namespace Cake.AppPackager.Tests
             // Then
             result.ShouldNotBeNull();
         }
-        
+
+        [Fact]
         public void ShouldReturnFromRegistryIfFound()
         {
             // Given
@@ -87,6 +93,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldNotBeNull();
         }
 
+        [Fact]
         public void ShouldThrowIfNotFoundOnDiscAndSdkRegistryPathCannotBeResolved()
         {
             // Given
@@ -100,6 +107,7 @@ namespace Cake.AppPackager.Tests
             result.ShouldBeType<CakeException>().Message.ShouldContain("Failed to find MakeAppx.exe.");
         }
 
+        [Fact]
         public void ShouldThrowIfAppPackagerCannotBeResolved()
         {
             // Given
