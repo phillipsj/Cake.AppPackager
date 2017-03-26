@@ -1,16 +1,15 @@
 ﻿using System;
 using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
-using Should;
 using Xunit;
-using Record = Should.Core.Assertions.Record;
 
 namespace Cake.AppPackager.Tests
 {
     public sealed class AppPackagerResolverTests
     {
         [Fact]
-        public void ShouldThrowIfFileSystemIsNull() {
+        public void ShouldThrowIfFileSystemIsNull()
+        {
             // Given
             var fixture = new AppPackagerResolverFixture();
             fixture.FileSystem = null;
@@ -19,11 +18,13 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Resolve());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("fileSystem");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("fileSystem", ((ArgumentNullException)result).ParamName);
         }
 
         [Fact]
-        public void ShouldThrowIfEnvironmentIsNull() {
+        public void ShouldThrowIfEnvironmentIsNull()
+        {
             // Given
             var fixture = new AppPackagerResolverFixture();
             fixture.Environment = null;
@@ -32,7 +33,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Resolve());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("environment");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("environment", ((ArgumentNullException)result).ParamName);
         }
 
         [Fact]
@@ -46,7 +48,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Resolve());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("registry");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("registry", ((ArgumentNullException)result).ParamName);
         }
 
         [Fact]
@@ -60,9 +63,10 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Resolve());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("tools");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("tools", ((ArgumentNullException)result).ParamName);
         }
-        
+
         [Theory]
         [InlineData(false)]
         [InlineData(true)]
@@ -76,7 +80,7 @@ namespace Cake.AppPackager.Tests
             var result = fixture.Resolve();
 
             // Then
-            result.ShouldNotBeNull();
+            Assert.NotNull(result);
         }
 
         [Fact]
@@ -90,7 +94,7 @@ namespace Cake.AppPackager.Tests
             var result = fixture.Resolve();
 
             // Then
-            result.ShouldNotBeNull();
+            Assert.NotNull(result);
         }
 
         [Fact]
@@ -104,7 +108,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Resolve());
 
             // Then
-            result.ShouldBeType<CakeException>().Message.ShouldContain("Failed to find MakeAppx.exe.");
+            Assert.IsType<CakeException>(result);
+            Assert.Equal("Failed to find MakeAppx.exe.", result.Message);
         }
 
         [Fact]
@@ -117,7 +122,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Resolve());
 
             // Then
-            result.ShouldBeType<CakeException>().Message.ShouldContain("Failed to find MakeAppx.exe.");
+            Assert.IsType<CakeException>(result);
+            Assert.Equal("Failed to find MakeAppx.exe.", result.Message);
         }
     }
 }

@@ -2,9 +2,7 @@
 using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
 using Cake.Testing;
-using Should;
 using Xunit;
-using Record = Should.Core.Assertions.Record;
 
 namespace Cake.AppPackager.Tests
 {
@@ -22,8 +20,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<CakeException>();
-            result.Message.ShouldEqual("App Packager: Could not locate executable.");
+            Assert.IsType<CakeException>(result);
+            Assert.Equal("App Packager: Could not locate executable.", result.Message);
         }
 
         [Fact]
@@ -36,7 +34,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("inputPackage");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("inputPackage", ((ArgumentNullException)result).ParamName);
         }
 
         [Fact]
@@ -49,7 +48,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputPackage");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("outputPackage", ((ArgumentNullException)result).ParamName);
         }
     }
 }
