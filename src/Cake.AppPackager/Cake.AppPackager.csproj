@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageId>Cake.AppPackager</PackageId>
     <Version>0.10.0.0</Version>
@@ -16,7 +16,7 @@
     <Copyright>Copyright 2016</Copyright>
     <PackageTags>Cake AppPackager MakeAppX UWP</PackageTags>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Cake.Core" Version="0.16.2" />
   </ItemGroup>
