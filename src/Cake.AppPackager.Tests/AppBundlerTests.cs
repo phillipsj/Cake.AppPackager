@@ -2,13 +2,13 @@
 using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
 using Cake.Testing;
-using Should;
-using Should.Core.Assertions;
+using Xunit;
 
 namespace Cake.AppPackager.Tests
 {
     public sealed class AppBundlerTests
     {
+        [Fact]
         public void ShouldThrowIfAppPackerExecutableWasNotFound()
         {
             // Given
@@ -19,10 +19,11 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<CakeException>();
-            result.Message.ShouldEqual("App Packager: Could not locate executable.");
+            Assert.IsType<CakeException>(result);
+            Assert.Equal("App Packager: Could not locate executable.", result.Message);
         }
 
+        [Fact]
         public void ShouldThrowIfOutputBundleIsNull()
         {
             // Given
@@ -32,9 +33,11 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputBundle");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("outputBundle", ((ArgumentNullException)result).ParamName);
         }
 
+        [Fact]
         public void ShouldThrowIfContentDirectoryIsNull()
         {
             // Given
@@ -44,7 +47,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("contentDirectory");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("contentDirectory", ((ArgumentNullException)result).ParamName);
         }
     }
 }

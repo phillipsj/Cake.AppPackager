@@ -3,7 +3,7 @@
 namespace Cake.AppPackager
 {
     /// <summary>
-    /// Contains settings used by <see cref="AppPackagerRunner"/>
+    /// Contains settings used by <see cref="AppPackagerTool{TSettings}"/>
     /// </summary>
     public sealed class AppPackagerSettings : ToolSettings
     {
