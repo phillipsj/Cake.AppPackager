@@ -250,3 +250,9 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# Cake - C# Make
+tools/*
+!tools/packages.config
+BuildArtifacts
+
