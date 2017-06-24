@@ -6,8 +6,9 @@
     <title>Cake.AppPackager</title>
     <authors>Jamie Phillips</authors>
     <owners>Jamie Phillips</owners>
-    <licenseUrl>https://github.com/phillipsj/Cake.AppPackager</licenseUrl>
-    <projectUrl>https://github.com/phillipsj/Cake.AppPackager</projectUrl>
+    <licenseUrl>https://github.com/cake-contrib/Cake.AppPackager/blob/develop/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/cake-contrib/Cake.AppPackager</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Cake Addin for creating UWP packages.</description>
     <releaseNotes>Initial Release</releaseNotes>
