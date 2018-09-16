@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Cake.Core;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 
+[assembly: InternalsVisibleTo("Cake.AppPackager.Tests")]
 namespace Cake.AppPackager {
     internal sealed class AppPackagerResolver : IAppPackagerResolver {
         private readonly IFileSystem _fileSystem;
