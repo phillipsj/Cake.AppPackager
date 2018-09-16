@@ -1,0 +1,538 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cake.AppPackager</name>
+    </assembly>
+    <members>
+        <member name="T:Cake.AppPackager.AppPackagerAliases">
+            <summary>
+            <para>Contains functionality related to create app packages using <see href="https://msdn.microsoft.com/en-us/library/windows/desktop/hh446767(v=vs.85).aspx">MakeAppx.exe</see>.</para>
+            <para>
+            In order to use the commands for this alias, App packager (MakeAppx) will need to be installed on the machine where
+            the Cake script is being executed.  This is typically achieved by installing the correct Windows SDK.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppPack(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath)">
+            <summary>
+            Create an application package using the specificed output name, content, and setttings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputPackage">Output name of the application package.</param>
+            <param name="contentDirectory">Directory for the content to be pack.</param>
+            <example>
+            <code>
+                AppPack("test.appx", "package-content"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppPack(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application package using the specificed output name, content, and setttings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputPackage">Output name of the application package.</param>
+            <param name="contentDirectory">Directory for the content to be pack.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppPack("test.appx", "package-content", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppPack(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath)">
+            <summary>
+            Create an application package using the specificed output name, AppxManifest, and setttings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputPackage">Output name of the application package.</param>
+            <param name="mappingFile">A a valid package manifest, AppxManifest.xml.</param>
+            <example>
+            <code>
+                AppPack("test.appx", "AppXManfist.xml"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppPack(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application package using the specificed output name, AppxManifest, and setttings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputPackage">Output name of the application package.</param>
+            <param name="mappingFile">A a valid package manifest, AppxManifest.xml.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppPack("test.appx", "AppXManfist.xml", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppUnpack(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath)">
+            <summary>
+            The App Packager unpacker used to unpack applications.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Package to unpack.</param>
+            <param name="outputDirectory">Location to unpack.</param>
+            <example>
+            <code>
+                AppUnpack("test.appx", "unpacked-content"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppUnpack(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            The App Packager unpacker used to unpack applications.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Package to unpack.</param>
+            <param name="outputDirectory">Location to unpack.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppUnpack("test.appx", "unpacked-content", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppBundle(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath)">
+            <summary>
+            Create an application bundle using the specificed output name, content.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputBundle">The name of the output bundle.</param>
+            <param name="contentDirectory">Directory for the content to be bundled.</param>
+            <example>
+            <code>
+                AppBundle("test.appxbundle", "bundle-content"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppBundle(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application bundle using the specificed output name, content, and settings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputBundle">The name of the output bundle.</param>
+            <param name="contentDirectory">Directory for the content to be bundled.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppBundle("test.appxbundle", "unbundled-content", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppBundle(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath)">
+            <summary>
+            Create an application bundle using the specificed output name, content, and AppxManifest.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputBundle">The name of the output bundle.</param>
+            <param name="mappingFile"></param>
+            <example>
+            <code>
+                AppBundle("test.appxbundle", "bundle-content", "AppXManfist.xml"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppBundle(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application bundle using the specificed output name, content, AppxManifest, and settings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="outputBundle">The name of the output bundle.</param>
+            <param name="mappingFile"></param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppBundle("test.appxbundle", "bundle-content", "AppXManfist.xml", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppUnbundle(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath)">
+            <summary>
+            Create an application bundle using the specificed input name and location to unbundle.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputBundle">Bundle to be unbundled.</param>
+            <param name="outputDirectory">Location to unbundle.</param>
+            <example>
+            <code>
+                AppUnbundle("test.appxbundle", "bundle-content"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppUnbundle(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application bundle using the specificed input name, location to unbundle, and settings.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputBundle">Bundle to be unbundled.</param>
+            <param name="outputDirectory">Location to unbundle.</param>
+            <param name="settings">The settings</param>
+            <example>
+            <code>
+                AppUnbundle("test.appxbundle", "bundle-content", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppEncrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath)">
+            <summary>
+            Creates an encrypted app package from the specified input app package at the specified output package.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <param name="keyFile">Key file.</param>
+            <example>
+            <code>
+                AppEncrypter("test.appx", "encrypted.appx", "keyfile_name.txt"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppEncrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath)">
+            <summary>
+            Creates an encrypted app package from the specified input app package at the specified output package using global test key.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <example>
+            <code>
+                AppEncrypter("test.appx", "encrypted.appx"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppEncrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Creates an encrypted app package from the specified input app package at the specified output package using global test key.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppEncrypter("test.appx", "encrypted.appx", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppEncrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Creates an encrypted app package from the specified input app package at the specified output package.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <param name="keyFile">Key file.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppEncrypter("test.appx", "encrypted.appx", "keyfile_name.txt", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppDecrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath)">
+            <summary>
+            Creates an decrypted app package from the specified input app package at the specified output package.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <param name="keyFile">Key file.</param>
+            <example>
+            <code>
+                AppDecrypter("test.appx", "decrypted.appx", "keyfile_name.txt"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppDecrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath)">
+            <summary>
+            Creates an decrypted app package from the specified input app package at the specified output package using global test key.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <example>
+            <code>
+                AppDecrypter("test.appx", "decrypted.appx"); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppDecrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Creates an decrypted app package from the specified input app package at the specified output package using global test key.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppDecrypter("test.appx", "decrypted.appx", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerAliases.AppDecrypter(Cake.Core.ICakeContext,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Creates an decrypted app package from the specified input app package at the specified output package.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="inputPackage">Input package.</param>
+            <param name="outputPackage">Output package.</param>
+            <param name="keyFile">Key file.</param>
+            <param name="settings">The settings.</param>
+            <example>
+            <code>
+                AppDecrypter("test.appx", "decrypted.appx", "keyfile_name.txt", new AppPackagerSettings { OverwriteOutput = true }); 
+            </code>
+            </example>
+        </member>
+        <member name="T:Cake.AppPackager.AppPackagerSettings">
+            <summary>
+            Contains settings used by <see cref="T:Cake.AppPackager.AppPackagerTool`1"/>
+            </summary>
+        </member>
+        <member name="P:Cake.AppPackager.AppPackagerSettings.Localized">
+            <summary>
+            Gets or sets if the validation should be disabled for localized packages.
+            </summary>
+        </member>
+        <member name="P:Cake.AppPackager.AppPackagerSettings.OverwriteOutput">
+            <summary>
+            Gets or sets if the output should be overwritten.
+            </summary>
+        </member>
+        <member name="P:Cake.AppPackager.AppPackagerSettings.PreventOverwriteOutput">
+            <summary>
+            Gets or sets if overwritting the output should be prevented.
+            </summary>
+        </member>
+        <member name="P:Cake.AppPackager.AppPackagerSettings.SkipSemanticValidation">
+            <summary>
+            Gets or sets if the validation should be skipped.
+            </summary>
+        </member>
+        <member name="P:Cake.AppPackager.AppPackagerSettings.EnableVerboseLogging">
+            <summary>
+            Gets or sets if verbose logging is enabled.
+            </summary>
+        </member>
+        <member name="T:Cake.AppPackager.AppPackagerTool`1">
+            <summary>
+            Base class for all App Packager related tools.
+            </summary>
+            <typeparam name="TSettings">The settings type.</typeparam>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerTool`1.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.AppPackagerTool`1" /> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerTool`1.GetToolName">
+            <summary>
+            Gets the name of the tool.
+            </summary>
+            <returns>
+            The name of the tool (<c>App Packager</c>).
+            </returns>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerTool`1.GetToolExecutableNames">
+            <summary>
+            Gets the possible names of the tool executable.
+            </summary>
+            <returns>The tool executable name.</returns>
+        </member>
+        <member name="M:Cake.AppPackager.AppPackagerTool`1.GetAlternativeToolPaths(`0)">
+            <summary>
+            Gets alternative file paths which the tool may exist in
+            </summary>
+            <param name="settings">The settings.</param>
+            <returns>The default tool path.</returns>
+        </member>
+        <member name="T:Cake.AppPackager.Bundle.AppBundler">
+            <summary>
+            The App Packager bundler used to bundle applications.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.Bundle.AppBundler.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.Bundle.AppBundler"/> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Bundle.AppBundler.Bundle(Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application bundle using the specificed output name, content, and setttings.
+            </summary>
+            <param name="outputBundle">Output name of the application bundle.</param>
+            <param name="contentDirectory">Directory for the content to be pack.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Bundle.AppBundler.Bundle(Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application package using the specificed output name, mapping file, and setttings.
+            </summary>
+            <param name="outputBundle">Output name of the application package.</param>
+            <param name="mappingFile">Mapping file to be used.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="T:Cake.AppPackager.Decrypt.AppDecrypter">
+            <summary>
+            The App Packager decrypter used to decrypt packages.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.Decrypt.AppDecrypter.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.Decrypt.AppDecrypter"/> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Decrypt.AppDecrypter.Decrypt(Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Creates an decrypted app package from the specified input app package at the specified output package.
+            </summary>
+            <param name="inputPackage">Input name of the application package.</param>
+            <param name="outputPackage">Output package name.</param>
+            <param name="keyFile">Keyfile to use for encryption, if not provided, the global test key will be used.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="T:Cake.AppPackager.Encrypt.AppEncrypter">
+            <summary>
+            The App Packager encrypter used to encrypt packages.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.Encrypt.AppEncrypter.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.Encrypt.AppEncrypter"/> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Encrypt.AppEncrypter.Encrypt(Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Creates an encrypted app package from the specified input app package at the specified output package.
+            </summary>
+            <param name="inputPackage">Input name of the application package.</param>
+            <param name="outputPackage">Output package name.</param>
+            <param name="keyFile">Keyfile to use for encryption, if not provided, the global test key will be used.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="T:Cake.AppPackager.IAppPackagerResolver">
+            <summary>
+            Represents an AppPackager tool resolver.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.IAppPackagerResolver.ResolvePath">
+            <summary>
+            Resolves the path to the AppPackager (MakeAppx) tool.
+            </summary>
+            <returns>The path to the AppPackager tool.</returns>
+        </member>
+        <member name="T:Cake.AppPackager.Pack.AppPacker">
+            <summary>
+            The App Packager packer used to pack applications.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.Pack.AppPacker.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.Pack.AppPacker"/> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Pack.AppPacker.Pack(Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application package using the specificed output name, content, and setttings.
+            </summary>
+            <param name="outputPackage">Output name of the application package.</param>
+            <param name="contentDirectory">Directory for the content to be pack.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Pack.AppPacker.Pack(Cake.Core.IO.FilePath,Cake.Core.IO.FilePath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Create an application package using the specificed output name, mapping file, and setttings.
+            </summary>
+            <param name="outputPackage">Output name of the application package.</param>
+            <param name="mappingFile">Mapping file to be used.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="T:Cake.AppPackager.ProcessBuilderExtensionsMethods">
+            <summary>
+            Contains extension methods for <see cref="T:Cake.Core.IO.ProcessArgumentBuilder" />.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.ProcessBuilderExtensionsMethods.AppendSwitch(Cake.Core.IO.ProcessArgumentBuilder,System.Boolean,System.String)">
+            <summary>
+            Appends the specified switch to the argument builder.
+            </summary>
+            <param name="builder">The builder.</param>
+            <param name="include">Appends the switch only if <c>true</c></param>
+            <param name="text">The text to be appended.</param>
+        </member>
+        <member name="T:Cake.AppPackager.Unbundle.AppUnbundler">
+            <summary>
+            The App Packager unbundler used to unbundle applications.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.Unbundle.AppUnbundler.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.Unbundle.AppUnbundler"/> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Unbundle.AppUnbundler.Unpack(Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Unpacks all packages to a subdirectory under the specified output path, named after the bundle full name. The output has the same directory structure as the installed package bundle.
+            </summary>
+            <param name="inputBundle">Input name of the application bundle..</param>
+            <param name="outputDirectory">Output directory to unbundle the application.</param>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="T:Cake.AppPackager.Unpack.AppUnpacker">
+            <summary>
+            The App Packager unpacker used to unpack applications.
+            </summary>
+        </member>
+        <member name="M:Cake.AppPackager.Unpack.AppUnpacker.#ctor(Cake.Core.IO.IFileSystem,Cake.Core.ICakeEnvironment,Cake.Core.IO.IProcessRunner,Cake.Core.Tooling.IToolLocator,Cake.AppPackager.IAppPackagerResolver)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cake.AppPackager.Unpack.AppUnpacker"/> class.
+            </summary>
+            <param name="fileSystem">The file system.</param>
+            <param name="environment">The environment.</param>
+            <param name="processRunner">The process runner.</param>
+            <param name="tools">The tool locator.</param>
+            <param name="resolver">The App Packager tool resolver.</param>
+        </member>
+        <member name="M:Cake.AppPackager.Unpack.AppUnpacker.Unpack(Cake.Core.IO.FilePath,Cake.Core.IO.DirectoryPath,Cake.AppPackager.AppPackagerSettings)">
+            <summary>
+            Unpacks an application package with the same structure as installed package.
+            </summary>
+            <param name="inputPackage">Application package to unpack.</param>
+            <param name="outputDirectory">Output directory to unpack the application.</param>
+            <param name="settings">The settings.</param>
+        </member>
+    </members>
+</doc>

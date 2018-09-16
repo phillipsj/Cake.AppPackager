@@ -15,4 +15,9 @@
     <copyright>Copyright (c) Jamie Phillips 2016 - Present</copyright>
     <tags>Cake AppPackager MakeAppX UWP</tags>
   </metadata>
+  <files>
+    <file src="netstandard2.0\Cake.AppPackager.dll" target="lib\netstandard2.0" />
+    <file src="netstandard2.0\Cake.AppPackager.pdb" target="lib\netstandard2.0" />
+    <file src="netstandard2.0\Cake.AppPackager.xml" target="lib\netstandard2.0" />
+  </files>
 </package>
