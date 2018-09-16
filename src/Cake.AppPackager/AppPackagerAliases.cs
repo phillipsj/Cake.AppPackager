@@ -17,7 +17,7 @@ namespace Cake.AppPackager {
     /// the Cake script is being executed.  This is typically achieved by installing the correct Windows SDK.
     /// </para>
     /// </summary>
-    [CakeAliasCategory("AppPacakager")]
+    [CakeAliasCategory("AppPackager")]
     public static class AppPackagerAliases {
 
         #region Packing 

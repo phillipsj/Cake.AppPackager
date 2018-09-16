@@ -2,6 +2,9 @@
 
 namespace Cake.AppPackager
 {
+    /// <summary>
+    /// Represents an AppPackager tool resolver.
+    /// </summary>
     public interface IAppPackagerResolver
     {
         /// <summary>

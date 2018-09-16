@@ -2,13 +2,13 @@
 using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
 using Cake.Testing;
-using Should;
-using Should.Core.Assertions;
+using Xunit;
 
 namespace Cake.AppPackager.Tests
 {
     public sealed class AppDecrypterTests
     {
+        [Fact]
         public void ShouldThrowIfAppPackerExecutableWasNotFound()
         {
             //InputPackage, OutputPackage, KeyFile, Settings
@@ -20,10 +20,11 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<CakeException>();
-            result.Message.ShouldEqual("App Packager: Could not locate executable.");
+            Assert.IsType<CakeException>(result);
+            Assert.Equal("App Packager: Could not locate executable.", result.Message);
         }
 
+        [Fact]
         public void ShouldThrowIfInputPackageIsNull()
         {
             // Given
@@ -33,9 +34,11 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("inputPackage");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("inputPackage", ((ArgumentNullException)result).ParamName);
         }
 
+        [Fact]
         public void ShouldThrowIfOutputPackageIsNull()
         {
             // Given
@@ -45,7 +48,8 @@ namespace Cake.AppPackager.Tests
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputPackage");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("outputPackage", ((ArgumentNullException)result).ParamName);
         }
     }
 }

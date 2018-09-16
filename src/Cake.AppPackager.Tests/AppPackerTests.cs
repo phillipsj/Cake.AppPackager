@@ -2,44 +2,53 @@
 using Cake.AppPackager.Tests.Fixtures;
 using Cake.Core;
 using Cake.Testing;
-using Should;
-using Should.Core.Assertions;
+using Xunit;
 
-namespace Cake.AppPackager.Tests {
-    public sealed class AppPackerTests {
-        public void ShouldThrowIfAppPackerExecutableWasNotFound() {
+namespace Cake.AppPackager.Tests
+{
+    public sealed class AppPackerTests
+    {
+        [Fact]
+        public void ShouldThrowIfAppPackerExecutableWasNotFound()
+        {
             // Given
-            var fixture = new AppPackerFixture() {OutputPackage = "test.appx", ContentDirectory = "content"};
+            var fixture = new AppPackerFixture() { OutputPackage = "test.appx", ContentDirectory = "content" };
             fixture.GivenDefaultToolDoNotExist();
 
             // When
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<CakeException>();
-            result.Message.ShouldEqual("App Packager: Could not locate executable.");
+            Assert.IsType<CakeException>(result);
+            Assert.Equal("App Packager: Could not locate executable.", result.Message);
         }
 
-        public void ShouldThrowIfOutputPackageIsNull() {
+        [Fact]
+        public void ShouldThrowIfOutputPackageIsNull()
+        {
             // Given
-            var fixture = new AppPackerFixture() {ContentDirectory = "content"};
+            var fixture = new AppPackerFixture() { ContentDirectory = "content" };
 
             // When
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("outputPackage");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("outputPackage", ((ArgumentNullException)result).ParamName);
         }
 
-        public void ShouldThrowIfContentDirectoryIsNull() {
+        [Fact]
+        public void ShouldThrowIfContentDirectoryIsNull()
+        {
             // Given
-            var fixture = new AppPackerFixture() {OutputPackage = "test.appx"};
+            var fixture = new AppPackerFixture() { OutputPackage = "test.appx" };
 
             // When
             var result = Record.Exception(() => fixture.Run());
 
             // Then
-            result.ShouldBeType<ArgumentNullException>().ParamName.ShouldEqual("contentDirectory");
+            Assert.IsType<ArgumentNullException>(result);
+            Assert.Equal("contentDirectory", ((ArgumentNullException)result).ParamName);
         }
     }
 }
