@@ -16,23 +16,10 @@ namespace Cake.AppPackager {
         private FilePath _cachedPath;
 
         public AppPackagerResolver(IFileSystem fileSystem, ICakeEnvironment environment, IToolLocator tools, IRegistry registry) {
-            if (fileSystem == null) {
-                throw new ArgumentNullException(nameof(fileSystem));
-            }
-            if (environment == null) {
-                throw new ArgumentNullException(nameof(environment));
-            }
-            if (tools == null) {
-                throw new ArgumentNullException(nameof(tools));
-            }
-            if (registry == null) {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            _fileSystem = fileSystem;
-            _environment = environment;
-            _tools = tools;
-            _registry = registry;
+            _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
+            _environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            _tools = tools ?? throw new ArgumentNullException(nameof(tools));
+            _registry = registry ?? throw new ArgumentNullException(nameof(registry));
         }
 
         public FilePath ResolvePath() {
